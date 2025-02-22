@@ -1,3 +1,7 @@
+
+export const revalidate = 60; // se guarda en cahce durante 60s
+
+
 import React from 'react'
 import {SeedProduct} from "@/interfaces/productInterface";
 import ProductCard from "@/components/product/ProductCard";

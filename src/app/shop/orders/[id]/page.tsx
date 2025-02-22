@@ -2,7 +2,7 @@ import React from 'react'
 import Title from "@/components/ui/Title";
 import Link from "next/link";
 import Image from "next/image";
-import {initialData} from "../../../../../seed/seed";
+import {initialData} from "../../../../../seed/dataBruto";
 import clsx from "clsx";
 import {IoCardOutline} from "react-icons/io5";
 

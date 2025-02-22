@@ -1,8 +1,9 @@
 "use client";
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Link from "next/link";
 import {IoCartOutline, IoSearch} from "react-icons/io5";
 import {useUiStore} from "@/store/uiStore";
+import {useCartStore} from "@/store/cart/cartStore";
 
 interface menuLink{
     src: string,
@@ -19,7 +20,17 @@ const menusCategory: menuLink[] = [
 ]
 
 export default function TopMenu() {
+    // sidebar
     const openMenu = useUiStore(state => state.openMenu);
+    // obtener el contador de carrito
+    const cartCount = useCartStore(state => state.getTotalItems());
+
+    // para evitar el problema de hidratacion
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(()=>{
+        setLoaded(true);
+    },[])
 
     return (
         <nav
@@ -50,12 +61,15 @@ export default function TopMenu() {
                 <Link href={'/shop/search'} className="mx-2" >
                     <IoSearch className="text-2xl cursor-pointer" />
                 </Link>
+                {/*Icono de carrito*/}
                 <Link href={'/shop/cart'} className="mx-2" >
                     <div className="relative" >
-                        <span className="absolute text-xs rounded-full px-1
-                        font-bold -top-2 -right-2 bg-blue-700 text-white" >
-                            3
-                        </span>
+                        {(loaded && cartCount > 0) && (
+                            <span className="absolute text-xs rounded-full px-1
+                                font-bold -top-2 -right-2 bg-blue-700 text-white" >
+                                {cartCount}
+                            </span>
+                        )}
                         <IoCartOutline className="text-2xl cursor-pointer" />
                     </div>
                 </Link>

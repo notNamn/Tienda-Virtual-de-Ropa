@@ -1,7 +1,7 @@
 import React from 'react'
 import Title from "@/components/ui/Title";
 import Link from "next/link";
-import {initialData} from "../../../../seed/seed";
+import {initialData} from "../../../../seed/dataBruto";
 import Image from "next/image";
 
 const productsInCart  = [
