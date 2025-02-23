@@ -3,6 +3,8 @@ import TopMenu from "@/components/ui/top-menu/TopMenu";
 import SideBar from "@/components/ui/sidebar/SideBar";
 import Footer from "@/components/footer/Footer";
 import {Metadata} from "next";
+import {auth} from "@/config/authConfig";
+import {redirect} from "next/navigation";
 import ToastNotification from "@/components/ui/ToastNotification";
 
 interface propsLaoyut{
@@ -17,7 +19,12 @@ export const metadata: Metadata = {
     description: 'Tienda virtual de productos'
 }
 
-export default function Layout({children}: propsLaoyut) {
+export default async function Layout({children}: propsLaoyut) {
+    const session = await auth();
+    if(!session?.user){
+        redirect('/auth/login');
+    }
+
     return (
         <main>
             <TopMenu/>
@@ -29,5 +36,6 @@ export default function Layout({children}: propsLaoyut) {
             <Footer/>
             <ToastNotification/>
         </main>
+
     )
 }

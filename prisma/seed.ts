@@ -1,5 +1,6 @@
 import {initialData} from "../seed/dataBruto";
 import prisma from "@/lib/prisma";
+import bycrptjs from "bcryptjs";
 
 async function main() {
     console.log('Iniciando seed...');
@@ -7,6 +8,7 @@ async function main() {
     // Eliminar productos existentes para evitar duplicados
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
+    await prisma.user.deleteMany();
 
     // Crear categorías únicas
     const categoriasUnicas =
@@ -47,6 +49,17 @@ async function main() {
 
         console.log(`Producto creado: ${nuevoProducto.title}`);
     }
+
+    // sed de usuarios
+    //
+    await prisma.user.create({
+        data:{
+            name: 'admin',
+            email: 'admin@gmail.com',
+            password: bycrptjs.hashSync('admin', 10),
+            rol: 'ADMIN'
+        }
+    })
 
     console.log('Seed completado.');
 }
