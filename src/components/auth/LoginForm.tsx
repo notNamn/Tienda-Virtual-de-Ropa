@@ -51,6 +51,7 @@ export default function LoginForm() {
 
             <LoginButton />
 
+            {/*Inicio de session con google*/}
             <button
                 type="button"
                 onClick={() => signIn("google")}
@@ -81,7 +82,7 @@ export default function LoginForm() {
                 href="/auth/new-account"
                 className="w-full bg-gray-200 text-gray-800 py-2 rounded-md text-center hover:bg-gray-300 transition-all font-semibold"
             >
-                Crear una nueva cuenta
+                Crear una nueva centa
             </Link>
         </form>
     );
