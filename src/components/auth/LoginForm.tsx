@@ -5,7 +5,9 @@ import { useActionState } from "react";
 import { authenticate } from "@/service/auth/authLoginService";
 import { IoInformationOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import {useFormStatus} from "react-dom";
+import { useFormStatus } from "react-dom";
+import { signIn } from "next-auth/react";
+import {FaGoogle} from "react-icons/fa";
 
 export default function LoginForm() {
     const [state, dispach] = useActionState(authenticate, undefined);
@@ -48,6 +50,17 @@ export default function LoginForm() {
             </div>
 
             <LoginButton />
+
+            <button
+                type="button"
+                onClick={() => signIn("google")}
+                className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition-all font-semibold flex items-center justify-center"
+            >
+                <span className="mr-2">
+                    <FaGoogle size={30} />
+                </span>
+                Ingresar con Google
+            </button>
 
             <div className="flex h-8 items-end space-x-1" aria-live="polite" aria-atomic="true">
                 {state && (
