@@ -1,26 +1,33 @@
 import React from 'react'
 import Title from "@/components/ui/Title";
-import Link from "next/link";
 import Image from "next/image";
-import {initialData} from "../../../../../seed/dataBruto";
-import clsx from "clsx";
 import {IoCardOutline} from "react-icons/io5";
+import {getOrderById} from "@/service/order/getOrderById";
+import {redirect} from "next/navigation";
 
-const productsInCart  = [
-    initialData.products[0],
-    initialData.products[1],
-    initialData.products[2],
-    initialData.products[3],
-]
+
 interface props {
     params: {
         id: string
     }
 }
 
-export default function PageOrderById({params}: props) {
+const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("es-ES", { style: "currency", currency: "USD" }).format(value);
+
+
+export default async function PageOrderById({params}: props) {
     const {id} = params;
 
+    const response = await getOrderById(id);
+    if (!response.ok){
+        redirect('/shop')
+    }
+    const order = response.order;
+    console.log({order})
+
+    const productsInCart = response!.order?.OrderItems;
+    const orderAddress = response.order?.OrderAddress;
 
     return (
         <div
@@ -38,30 +45,18 @@ export default function PageOrderById({params}: props) {
                     <div
                         className="flex flex-col mt-5"
                     >
-                        <div
-                            className={
-                                clsx(
-                                    "flex items-center rounded-lg py-2 px-3.5 " +
-                                    "text-xs font-bold text-white mb-5",
-                                    {
-                                        'bg-green-500': false,
-                                        'bg-red-500': true
-                                    }
-                                )
-                            }
-                        >
-                            <IoCardOutline size={30} />
-                            <span className="mx-2">pendiente de pago </span>
-                        </div>
-                        <span className="text-xl" >
+                        <IsPayItemWidget estado={order!.isPaid} />
+
+                        <span className="text-xl mb-4" >
                             Items agregados
                         </span>
+
                         {/*Items de carritos */}
 
-                        {productsInCart.map(product => (
+                        {productsInCart!.map(product => (
                             <div
-                                key={product.slug}
-                                className="flex"
+                                key={product.product.slug}
+                                className="flex mb-2"
                             >
                                 <Image
                                     width={100}
@@ -70,15 +65,15 @@ export default function PageOrderById({params}: props) {
                                         width: '100px',
                                         height: '100px',
                                     }}
-                                    src={`/products/${product.images[0]}`}
-                                    alt={product.title}
+                                    src={`/products/${product.product.images[0].url}`}
+                                    alt={product.product.title}
                                     className="mr-5"
                                 />
                                 <div>
                                     <p className="font-extralight text-xl" >
-                                        {product.title}
+                                        {product.size} -  {product.product.title}
                                     </p>
-                                    <p  >Unidades: 2 </p>
+                                    <p  >Unidades: {product.quantity} </p>
                                     <p className="font-bold" >
                                         Subtotal: ${product.price}
                                     </p>
@@ -95,54 +90,59 @@ export default function PageOrderById({params}: props) {
                             Resumen de la orden
                         </h2>
                         {/*Datos de la orden */}
-                        <h2 className="text-xl mb-2" >Direccion de entrega: </h2>
-                        <div className="mb-10" >
-                            <p className="text-lg" >Nombre de cliente</p>
-                            <p>Dereccion </p>
+                        <div className=" grid grid-cols-2 mb-10" >
+                            <p className="text-lg" >Nombre de cliente:</p>
+                            <span className="text-right" >{`${orderAddress?.name} ${orderAddress?.lastName} `}</span>
+                            <p className="text-lg" >Direccion de entrega:</p>
+                            <span className="text-right" >{orderAddress?.address} </span>
+                            <p className="text-lg" >Ciudad:</p>
+                            <span className="text-right" >{orderAddress?.city}</span>
+                            <p className="text-lg" >Telefono:</p>
+                            <span className="text-right" >{orderAddress?.phone}</span>
                         </div>
-
                         {/*Resumen de la compra */}
                         <h2 className="text-xl mb-2" >Resumen de compra</h2>
                         <div
                             className="grid grid-cols-2"
                         >
                             <span>N° de productos  </span>
-                            <span className="text-right" > 0 productos </span>
+                            <span className="text-right" >
+                                {order!.itemsInOrder===1 ? `${order!.itemsInOrder} producto` : `${order!.itemsInOrder} productos` }
+                            </span>
 
                             <span>Subtotal:  </span>
-                            <span className="text-right" > $ 0</span>
+                            <span className="text-right" > {formatCurrency(order!.subTotal)}</span>
 
                             <span>Impuestos (15%) </span>
-                            <span className="text-right" >$ 23</span>
+                            <span className="text-right" >{formatCurrency(order!.tax)}</span>
 
                             <span className="mt-5 text-2xl" >Total:  </span>
-                            <span className="mt-5 text-2xl text-right" > $ 23</span>
+                            <span className="mt-5 text-2xl text-right" > {formatCurrency(order!.total)}</span>
 
                         </div>
 
                         <div
                             className="mt-5 mb-2 w-full"
                         >
-                            <div
-                                className={
-                                    clsx(
-                                        "flex items-center rounded-lg py-2 px-3.5 " +
-                                        "text-xs font-bold text-white mb-5",
-                                        {
-                                            'bg-green-500': true,
-                                            'bg-red-500': false
-                                        }
-                                    )
-                                }
-                            >
-                                <IoCardOutline size={30} />
-                                <span className="mx-2">Orden pagada </span>
-                            </div>
+                            <IsPayItemWidget estado={order!.isPaid} />
                         </div>
 
                     </div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+function IsPayItemWidget({estado}: {estado: boolean}) {
+
+    return(
+        <div
+            className={`flex items-center rounded-lg py-2 px-3.5 
+                text-xs font-bold text-white mb-5 ${estado ? 'bg-green-500' : 'bg-red-500'}`}
+        >
+            <IoCardOutline size={30} />
+            <span className="mx-2"> {estado ? 'Orden pagada' : 'pendiente de pago'} </span>
         </div>
     )
 }

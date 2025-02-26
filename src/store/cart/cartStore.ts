@@ -18,6 +18,8 @@ interface Estado {
         tax: number,
         total: number,
     };
+
+    clearCart: ()=> void;
 }
 
 export const useCartStore = create<Estado>()(
@@ -93,6 +95,9 @@ export const useCartStore = create<Estado>()(
                     tax: tax,
                     total: total,
                 };
+            },
+            clearCart: () => {
+                set({ cart: [] });
             },
         }),
         {
