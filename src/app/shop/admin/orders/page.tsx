@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { IoCardOutline } from 'react-icons/io5';
 import Title from "@/components/ui/Title";
-import {getOrderByUser} from "@/service/order/getOrderByUser";
 import {redirect} from "next/navigation";
+import {getAllOrderPaginateAdmin} from "@/service/admin/OrdenAdminService";
 
-export default async function PageShopOrders() {
-    const {orders, ok} = await getOrderByUser();
+export default async function AllOrderByAdminPage() {
+    const {ok, orders} = await getAllOrderPaginateAdmin();
     if (!ok){
         redirect('/shop');
     }
@@ -24,7 +24,7 @@ export default async function PageShopOrders() {
                             #ID
                         </th>
                         <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                            Nombre completo
+                            Nombre del cliente
                         </th>
                         <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                             Estado

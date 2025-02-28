@@ -34,7 +34,13 @@ const menus: menuLink[] = [
         icon: <IoTicketOutline size={30} className="mr-2" />,
         src: '/shop/orders',
         name: 'Órdenes',
-        roles: ['USER', 'ADMIN']
+        roles: ['USER']
+    },
+    {
+        icon: <IoTicketOutline size={30} className="mr-2" />,
+        src: '/shop/admin/orders',
+        name: 'Órdenes',
+        roles: ['ADMIN']
     },
     {
         icon: <IoShirtOutline size={30} className="mr-2" />,
@@ -44,7 +50,7 @@ const menus: menuLink[] = [
     },
     {
         icon: <IoPeopleOutline size={30} className="mr-2" />,
-        src: '/admin/users',
+        src: '/shop/admin/users',
         name: 'Usuarios',
         roles: ['ADMIN']
     },

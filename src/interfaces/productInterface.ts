@@ -10,6 +10,7 @@ export interface SeedProduct {
     title: string;
     type: ValidTypes;
     gender: ValidCategory;
+    categoryId?: string;
 }
 
 export type ValidCategory = 'men'|'women'|'kid'|'unisex';
