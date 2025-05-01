@@ -53,8 +53,18 @@
 
 ## 📸 Capturas del Sistema
 
-![E-commerce](https://placehold.co/600x400/EFEFEF/grey?text=Captura+1+E-commerce)  
-![Productos](https://placehold.co/600x400/EFEFEF/grey?text=Captura+2+Productos)
+![image](https://github.com/user-attachments/assets/df4af4aa-0cf1-473c-a828-7fbfc0f480d1)
+![image](https://github.com/user-attachments/assets/abfa48ed-6c03-4029-a11e-b62d529dfb74)
+![image](https://github.com/user-attachments/assets/03181d82-082d-43db-8fa9-2738fc4c856a)
+![image](https://github.com/user-attachments/assets/b4be556c-851b-4884-a08b-ea6519a34e68)
+
+![image](https://github.com/user-attachments/assets/2494cfdf-3b73-4999-9af9-aeb75b91ec80)
+
+![image](https://github.com/user-attachments/assets/cb56599e-5132-49ea-b78c-dba43dd31d22)
+
+![image](https://github.com/user-attachments/assets/9b88194c-7288-4a5b-b9e7-d5a44b114ed7)
+![image](https://github.com/user-attachments/assets/b046a753-1bd0-4147-882e-890f082f5398)
+![image](https://github.com/user-attachments/assets/4d05126f-7cfb-4833-a815-5959a1c59077)
 
 ---
 
