@@ -10,14 +10,14 @@
 
 ## 🧑‍💻 Tecnologías Utilizadas
 
-### 🔙 Backend & Fullstack
+### Backend & Fullstack
 - **TypeScript**
 - **Next.js** (SSR & API Routes)
 - **NextAuth** (Seguridad y loggin con google)
 - **PostgreSQL** con **Prisma ORM**
 
 
-### 🌐 Frontend
+### Frontend
 - **React**
 - **Tailwind CSS** (diseño moderno y responsivo)
 
@@ -32,12 +32,12 @@
 
 ## ✨ Funcionalidades Principales
 
-- 🔐 Registro de usuarios e inicio de sesión con **Google Sign-In**
-- 🛍 Visualización del catálogo de productos con imágenes y detalles
-- 🛒 **Carrito de compras** (agregar, editar, eliminar productos)
-- 💳 Proceso de **checkout**
-- 🛠 Gestión de productos para administradores (CRUD)
-- 📦 Historial de pedidos para cada usuario
+- Registro de usuarios e inicio de sesión con **Google Sign-In**
+- Visualización del catálogo de productos con imágenes y detalles
+- **Carrito de compras** (agregar, editar, eliminar productos)
+- Proceso de **checkout**
+- Gestión de productos para administradores (CRUD)
+- Historial de pedidos para cada usuario
 
 ---
 
